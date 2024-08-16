@@ -27,7 +27,24 @@ public class OneSimpleAttractor_No082 {
         StdDraw.enableDoubleBuffering();
         while (true){
 
-            // compute
+            // compute the attractive force to the mouse, accounting for drag
+            double dx = StdDraw.mouseX() - rx;
+            double dy = StdDraw.mouseY() - ry;
+            double fx = (dx * attractionStrength) - (drag * vx);
+            double fy = (dy * attractionStrength) - (drag * vy);
+
+            // Euler step: update velocity, then position
+            vx += fx * dt / mass;
+            vy += fy * dt / mass;
+            rx += vx * dt;
+            ry += vy * dt;
+
+            // draw particle
+            StdDraw.clear();
+            StdDraw.setPenColor(StdDraw.BLUE);
+            StdDraw.filledCircle(rx, ry, 0.02);
+            StdDraw.show();
+            StdDraw.pause(10);
 
         }
 
